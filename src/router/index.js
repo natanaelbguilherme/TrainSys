@@ -21,17 +21,17 @@ const routes = [
         component: Login
       },
       {
-        path: '/novoaluno',
+        path: '/aluno/novo',
         name: 'CadastroNovoAluno',
         component: CadastroNovoAluno
       },
       {
-        path: '/novotreino',
+        path: '/treino/novo',
         name: 'CadastroTreino',
         component: CadastroTreino
       },
       {
-        path: '/novousuario',
+        path: '/usuario/novo',
         name: 'CadastroUsuario',
         component: CadastroUsuario
       },
@@ -41,17 +41,17 @@ const routes = [
         component: Deashboard
       },
       {
-        path: '/gerenciamentoalunos',
+        path: '/listagem/alunos',
         name: 'GerenciamentoDeAlunos',
         component: GerenciamentoDeAlunos
       },
       {
-        path: '/gerenciamentoexercicios',
+        path: '/listagem/exercicios',
         name: 'GerenciamentoDeExercicios',
         component: GerenciamentoDeExercicios
       },
       {
-        path: '/visualizacaotreinos',
+        path: '/listagem/treinos',
         name: 'VisualizacaoTreinos',
         component: VisualizacaoTreinos
       },
