@@ -1,16 +1,18 @@
 <template>
   <v-layout>
-    <v-app-bar color="#d6249f" v-if="renderizarMenu">
+    <v-app-bar color="#0D47A1" v-if="renderizarMenu">
       <v-app-bar-title class="titleMenu">TrainSys</v-app-bar-title>
 
       <v-btn>
         <router-link to="/deashboard"> Home </router-link>
       </v-btn>
-      <v-btn>
-        <router-link to="/"> login </router-link>
-      </v-btn>
+
       <v-btn>
         <router-link to="/usuario/novo"> cadastro </router-link>
+      </v-btn>
+
+      <v-btn>
+        <router-link to="/"> Sair </router-link>
       </v-btn>
     </v-app-bar>
     <v-main>
@@ -23,8 +25,10 @@
 export default {
   computed: {
     renderizarMenu() {
-      return this.$router.path !== "/" && this.$router.path !== "/usuario/novo";
+      return this.$router.path !== "" && this.$router.path !== "/usuario/novo";
     },
   },
 };
 </script>
+
+<style scoped></style>

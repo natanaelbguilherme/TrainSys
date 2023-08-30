@@ -28,7 +28,8 @@
         </div>
       </div>
 
-      <v-btn type="submit" block class="mt-2">Cadastrar</v-btn>
+      <v-btn type="submit" block color="#0D47A1" class="mt-2">Cadastrar</v-btn>
+      <v-btn type="submit" block class="mt-2">Voltar</v-btn>
     </v-form>
   </div>
 </template>
