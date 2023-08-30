@@ -12,7 +12,7 @@
       </v-btn>
 
       <v-btn>
-        <router-link to="/listagem/exercicios"> exercicios </router-link>
+        <router-link to="/listagem/alunos"> alunos </router-link>
       </v-btn>
 
       <v-btn>
