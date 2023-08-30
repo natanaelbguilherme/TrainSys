@@ -1,21 +1,19 @@
 <template>
   <div class="container">
-    <v-sheet width="300" class="mx-auto">
-      <v-form fast-fail @submit.prevent="fazerLogin">
-        <v-text-field v-model="email" label="E-mail"></v-text-field>
-        <span v-if="erroEmail">{{ erroEmail }}</span>
+    <v-form class="form-login" fast-fail @submit.prevent="fazerLogin">
+      <v-text-field v-model="email" label="E-mail"></v-text-field>
+      <span v-if="erroEmail">{{ erroEmail }}</span>
 
-        <v-text-field v-model="password" label="Senha"></v-text-field>
-        <span v-if="erroSenha">{{ erroSenha }}</span>
+      <v-text-field v-model="password" label="Senha"></v-text-field>
+      <span v-if="erroSenha">{{ erroSenha }}</span>
 
-        <v-btn type="submit" block class="mt-2">Entrar</v-btn>
-      </v-form>
-      <p>
-        Ainda não tem conta?<router-link to="/usuario/novo"
-          >Cadastre-se</router-link
-        >
-      </p>
-    </v-sheet>
+      <v-btn type="submit" block class="mt-2">Entrar</v-btn>
+    </v-form>
+    <span class="cadastro">
+      Ainda não tem conta?<router-link to="/usuario/novo"
+        >Cadastre-se</router-link
+      >
+    </span>
   </div>
 </template>
 
@@ -48,6 +46,19 @@ export default {
 
 <style>
 .container {
-  margin-top: 100px;
+  margin: 100px auto;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.cadastro {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 8px;
 }
 </style>

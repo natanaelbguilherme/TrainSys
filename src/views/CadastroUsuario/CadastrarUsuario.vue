@@ -1,24 +1,36 @@
 <template>
-  <v-sheet width="300" class="mx-auto">
-    <v-form fast-fail @submit.prevent="cadastrarUsuario">
+  <div class="container">
+    <v-form class="formulario" @submit.prevent="cadastrarUsuario">
       <v-text-field v-model="nomeCompleto" label="Nome Completo"></v-text-field>
       <v-text-field v-model="email" label="E-mail"></v-text-field>
       <v-text-field v-model="password" label="Senha"></v-text-field>
       <v-text-field
         v-model="passwordConfirm"
-        label="Confirme Sua Senha"
+        label="Repita Sua Senha"
       ></v-text-field>
 
-      <v-radio-group v-model="plano">
-        <v-radio value="bronze">Bronze</v-radio>
-        <v-radio value="prata">Prata</v-radio>
-        <v-radio value="ouro">Ouro</v-radio>
-      </v-radio-group>
+      <div class="form-element">
+        <p>Selecione um tipo de plano:</p>
+
+        <div class="form-radio">
+          <input id="bronze" type="radio" value="1" v-model="plano" />
+          <label for="bronze">Bronze</label>
+        </div>
+
+        <div class="form-radio">
+          <input id="prata" type="radio" value="2" v-model="plano" />
+          <label for="prata">Prata</label>
+        </div>
+
+        <div class="form-radio">
+          <input id="premium" type="radio" value="3" v-model="plano" />
+          <label for="premium">Premium</label>
+        </div>
+      </div>
 
       <v-btn type="submit" block class="mt-2">Cadastrar</v-btn>
     </v-form>
-    <p></p>
-  </v-sheet>
+  </div>
 </template>
 
 <script>
@@ -29,7 +41,7 @@ export default {
       email: "",
       password: "",
       passwordConfirm: "",
-      plano: "prata",
+      plano: "2",
     };
   },
 
@@ -40,3 +52,29 @@ export default {
   },
 };
 </script>
+
+<style>
+.container {
+  margin: 100px auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.form-element {
+  margin-bottom: 15px;
+}
+
+.form-radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+</style>
