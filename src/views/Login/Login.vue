@@ -1,11 +1,17 @@
 <template>
   <div class="container">
     <v-form class="form-login" @submit.prevent="fazerLogin">
-      <v-text-field v-model="email" label="E-mail"></v-text-field>
-      <span v-if="erroEmail">{{ erroEmail }}</span>
+      <v-text-field
+        :error-messages="erroEmail"
+        v-model="email"
+        label="E-mail"
+      ></v-text-field>
 
-      <v-text-field v-model="password" label="Senha"></v-text-field>
-      <span v-if="erroSenha">{{ erroSenha }}</span>
+      <v-text-field
+        :error-messages="erroSenha"
+        v-model="password"
+        label="Senha"
+      ></v-text-field>
 
       <v-btn type="submit" block class="mt-2">Entrar</v-btn>
     </v-form>
@@ -18,6 +24,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data: () => ({
     email: "",
@@ -37,7 +45,31 @@ export default {
       if (this.password === "") this.erroSenha = "Digite a senha";
 
       if (this.erroEmail === "" && this.erroSenha === "") {
-        this.$router.push("/deashboard");
+        axios({
+          url: "http://localhost:3000/sessions",
+          method: "POST",
+          data: {
+            email: this.email,
+            password: this.password,
+          },
+          // headers: {
+          //   Authorization: `Bearen ${token}`
+          // }
+        })
+          .then((response) => {
+            localStorage.setItem("usuario_token", response.data.token);
+            localStorage.setItem("nome_usuario", response.data.name);
+            console.log(response.data.token);
+            console.log(response.data.name);
+
+            this.$router.push("/deashboard");
+            console.log("logado");
+          })
+          .catch(() => {
+            alert("erro ao logar");
+            this.$router.push("/usuario/novo");
+            console.log("erro ao logar");
+          });
       }
     },
   },

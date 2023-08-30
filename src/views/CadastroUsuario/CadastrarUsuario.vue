@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <H2>Crie sua conta</H2>
     <v-form class="formulario" @submit.prevent="cadastrarUsuario">
       <v-text-field v-model="nomeCompleto" label="Nome Completo"></v-text-field>
       <v-text-field v-model="email" label="E-mail"></v-text-field>
@@ -29,7 +30,9 @@
       </div>
 
       <v-btn type="submit" block color="#0D47A1" class="mt-2">Cadastrar</v-btn>
-      <v-btn type="submit" block class="mt-2">Voltar</v-btn>
+      <v-btn type="submit" @click="pagLogin" block color="#fff" class="mt-2"
+        >Voltar</v-btn
+      >
     </v-form>
   </div>
 </template>
@@ -50,6 +53,9 @@ export default {
     cadastrarUsuario() {
       console.log("cadastrou");
     },
+    pagLogin() {
+      this.$router.push("/");
+    },
   },
 };
 </script>
@@ -67,10 +73,12 @@ export default {
   display: flex;
   flex-direction: column;
   width: 300px;
+  margin-top: 20px;
 }
 
 .form-element {
-  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-radio {
