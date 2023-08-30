@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <v-form class="form-login" fast-fail @submit.prevent="fazerLogin">
+    <v-form class="form-login" @submit.prevent="fazerLogin">
       <v-text-field v-model="email" label="E-mail"></v-text-field>
       <span v-if="erroEmail">{{ erroEmail }}</span>
 

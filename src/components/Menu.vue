@@ -12,6 +12,10 @@
       </v-btn>
 
       <v-btn>
+        <router-link to="/listagem/exercicios"> exercicios </router-link>
+      </v-btn>
+
+      <v-btn>
         <router-link to="/"> Sair </router-link>
       </v-btn>
     </v-app-bar>
