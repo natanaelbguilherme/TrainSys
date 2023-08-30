@@ -12,7 +12,7 @@
       </v-btn>
 
       <v-btn>
-        <router-link to="/treino/novo"> treino </router-link>
+        <router-link to="/listagem/treinos"> treino </router-link>
       </v-btn>
 
       <v-btn>
