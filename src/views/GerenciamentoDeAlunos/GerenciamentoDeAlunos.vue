@@ -4,7 +4,7 @@
       <h1>
         <v-icon class="card-icon" size="50">mdi-account-multiple</v-icon> Alunos
       </h1>
-      <v-btn color="#009688" type="submit">Novo Aluno</v-btn>
+      <v-btn color="#009688" type="submit" @click="novoAluno">Novo Aluno</v-btn>
     </div>
     <v-form class="cad-exercicio" @submit.prevent="cadastrarExercicio">
       <v-text-field
@@ -63,6 +63,9 @@ export default {
   methods: {
     cadastrarExercicio() {
       console.log("entrei aqui");
+    },
+    novoAluno() {
+      this.$router.push("/aluno/novo");
     },
   },
 };
