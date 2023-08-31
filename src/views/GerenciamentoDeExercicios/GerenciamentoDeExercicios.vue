@@ -5,6 +5,7 @@
     </h1>
     <v-form class="cad-exercicio" @submit.prevent="cadastrarExercicio">
       <v-text-field
+        :error-messages="this.errors.exercicio"
         class="input-exercicio"
         v-model="exercicio"
         label="Exercício"
@@ -39,6 +40,8 @@ export default {
   data: () => ({
     exercicio: "",
     data: [],
+
+    errors: [],
   }),
 
   mounted() {
@@ -88,6 +91,8 @@ export default {
         })
           .then(() => {
             console.log("Cadastrado com sucesso");
+            this.errors = [];
+            this.exercicio = "";
           })
           .catch((error) => {
             if (error.response?.data?.message) {

@@ -9,10 +9,12 @@
     <v-form class="cad-exercicio" @submit.prevent="cadastrarExercicio">
       <v-text-field
         class="input-exercicio"
-        v-model="exercicio"
-        label="Nome do Aluno"
+        v-model="alunoPesquisa"
+        label="Pesquisar Aluno"
       ></v-text-field>
-      <v-btn height="54" color="#0d47a1" type="submit">Buscar</v-btn>
+      <!-- <v-btn @click="filtrarAlunos" height="54" color="#0d47a1" type="submit"
+        >Buscar</v-btn
+      > -->
     </v-form>
 
     <v-table>
@@ -23,26 +25,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>João</td>
-          <td>
-            <v-btn class="mr-2" height="20" color="#4527A0" type="submit"
-              >Montar Treino</v-btn
-            >
-            <v-btn height="20" color="#E65100" type="submit">Ver</v-btn>
-          </td>
-        </tr>
-        <tr>
-          <td>Maria</td>
-          <td>
-            <v-btn class="mr-2" height="20" color="#4527A0" type="submit"
-              >Montar Treino</v-btn
-            >
-            <v-btn height="20" color="#E65100" type="submit">Ver</v-btn>
-          </td>
-        </tr>
-        <tr>
-          <td>José</td>
+        <tr v-for="aluno in alunos" :key="aluno.id">
+          <td>{{ aluno.name }}</td>
           <td>
             <v-btn class="mr-2" height="20" color="#4527A0" type="submit"
               >Montar Treino</v-btn
@@ -56,13 +40,50 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data: () => ({
-    exercicio: "",
+    alunos: [],
+    alunoPesquisa: "",
   }),
+
+  mounted() {
+    this.buscarAlunos();
+  },
+
+  watch: {
+    alunoPesquisa() {
+      if (this.alunoPesquisa === "") {
+        this.buscarAlunos();
+      } else {
+        this.filtrarAlunos();
+      }
+    },
+  },
+
   methods: {
-    cadastrarExercicio() {
+    filtrarAlunos() {
+      const pesquisa = this.alunoPesquisa.toLowerCase();
+      this.alunos = this.alunos.filter((aluno) =>
+        aluno.name.toLowerCase().includes(pesquisa)
+      );
+    },
+
+    buscarAlunos() {
       console.log("entrei aqui");
+
+      axios({
+        url: "http://localhost:3000/students",
+        method: "GET",
+      })
+        .then((response) => {
+          this.alunos = response.data.students;
+          console.log(this.alunos);
+        })
+        .catch(() => {
+          console.log("dados não encontrados");
+        });
     },
     novoAluno() {
       this.$router.push("/aluno/novo");

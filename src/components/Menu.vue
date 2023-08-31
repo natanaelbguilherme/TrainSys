@@ -8,7 +8,7 @@
       </v-btn>
 
       <v-btn>
-        <router-link to="/aluno/novo"> Aluno </router-link>
+        <router-link to="/listagem/alunos"> Alunos </router-link>
       </v-btn>
 
       <v-btn>
