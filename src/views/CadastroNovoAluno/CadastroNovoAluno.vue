@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <h1><v-icon class="card-icon" size="50">mdi-account</v-icon>Novo Aluno</h1>
-    {{ dataNascimento }}
+
     <v-form class="cad-aluno">
       <v-text-field
         :error-messages="this.errors.nome"
@@ -86,7 +86,7 @@
 import axios from "axios";
 import * as yup from "yup";
 import { captureErrorYup } from "../../utils/captureErrorYup";
-import { dateFormat } from "../../utils/dateFormat";
+//import { dateFormat } from "../../utils/dateFormat";
 
 export default {
   data: () => ({
@@ -177,8 +177,7 @@ export default {
             .required("o Telefone é obrigatorio"),
           dataNascimento: yup
             .date()
-            .transform(dateFormat)
-            .nullable()
+
             .required("a data é obrigatoria")
             .max(new Date(), "não é permitida uma data futura"),
 
@@ -186,10 +185,10 @@ export default {
             .string()
             .min(8, "o cep deve ter  8 numeros")
             .required("o CEP é obrigatorio"),
-          endereco: yup.string().required("O endereço é obrigatório"),
+          //endereco: yup.string().required("O endereço é obrigatório"),
           numero: yup.number().required("O Número é obrigatório"),
-          bairro: yup.string().required("O bairro é obrigatório"),
-          cidade: yup.string().required("A cidade é obrigatória"),
+          //bairro: yup.string().required("O bairro é obrigatório"),
+          //cidade: yup.string().required("A cidade é obrigatória"),
           estado: yup.string().required("O estado é obrigatório"),
           complemento: yup.string().max(100, "digite no maximo 100 caracteres"),
         });

@@ -4,7 +4,7 @@
       <v-app-bar-title class="titleMenu">TrainSys</v-app-bar-title>
 
       <v-btn>
-        <router-link to="/deashboard"> Home </router-link>
+        <router-link to="/dashboard"> Home </router-link>
       </v-btn>
 
       <v-btn>
@@ -12,7 +12,7 @@
       </v-btn>
 
       <v-btn>
-        <router-link to="/listagem/treinos"> treino </router-link>
+        <router-link to="/listagem/exercicios"> Exercícios </router-link>
       </v-btn>
 
       <v-btn>

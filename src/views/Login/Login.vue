@@ -2,12 +2,14 @@
   <div class="container">
     <v-form class="form-login" @submit.prevent="fazerLogin">
       <v-text-field
+        type="email"
         :error-messages="erroEmail"
         v-model="email"
         label="E-mail"
       ></v-text-field>
 
       <v-text-field
+        type="password"
         :error-messages="erroSenha"
         v-model="password"
         label="Senha"
@@ -62,7 +64,7 @@ export default {
             console.log(response.data.token);
             console.log(response.data.name);
 
-            this.$router.push("/deashboard");
+            this.$router.push("/dashboard");
             console.log("logado");
           })
           .catch(() => {

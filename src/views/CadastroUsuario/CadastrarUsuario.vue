@@ -8,6 +8,7 @@
         label="Nome Completo"
       ></v-text-field>
       <v-text-field
+        type="email"
         :error-messages="this.errors.email"
         v-model="email"
         label="E-mail"
@@ -18,6 +19,7 @@
         label="Senha"
       ></v-text-field>
       <v-text-field
+        type="password"
         :error-messages="this.errors.passwordConfirm"
         v-model="passwordConfirm"
         label="Repita Sua Senha"
