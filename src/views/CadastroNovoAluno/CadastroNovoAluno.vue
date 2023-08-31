@@ -41,6 +41,7 @@
         >{{ data.logradouro }}</v-text-field
       >
       <v-text-field
+        type="number"
         :error-messages="this.errors.numero"
         v-model="numero"
         label="Número"
@@ -186,7 +187,7 @@ export default {
             .min(8, "o cep deve ter  8 numeros")
             .required("o CEP é obrigatorio"),
           //endereco: yup.string().required("O endereço é obrigatório"),
-          numero: yup.number().required("O Número é obrigatório"),
+          numero: yup.string().required("O Número é obrigatório"),
           //bairro: yup.string().required("O bairro é obrigatório"),
           //cidade: yup.string().required("A cidade é obrigatória"),
           estado: yup.string().required("O estado é obrigatório"),
