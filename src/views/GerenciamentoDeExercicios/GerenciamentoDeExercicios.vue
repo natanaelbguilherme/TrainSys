@@ -8,8 +8,11 @@
         class="input-exercicio"
         v-model="exercicio"
         label="Exercício"
+        placeholder="Nome do Exercício"
       ></v-text-field>
-      <v-btn height="54" color="#0d47a1" type="submit">Novo Exercício</v-btn>
+      <v-btn height="54" color="#0d47a1" type="submit"
+        >Cadastrar Exercício</v-btn
+      >
     </v-form>
 
     <v-table>
@@ -19,17 +22,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Supino Reto</td>
-        </tr>
-        <tr>
-          <td>Agachamento</td>
-        </tr>
-        <tr>
-          <td>Remada</td>
-        </tr>
-        <tr>
-          <td>Leg Press</td>
+        <tr v-for="exercicio in data" :key="exercicio.id">
+          <td>{{ exercicio.description }}</td>
         </tr>
       </tbody>
     </v-table>
@@ -37,13 +31,78 @@
 </template>
 
 <script>
+import axios from "axios";
+import * as yup from "yup";
+import { captureErrorYup } from "../../utils/captureErrorYup";
+
 export default {
   data: () => ({
     exercicio: "",
+    data: [],
   }),
+
+  mounted() {
+    this.carregaExercicios();
+  },
+
+  watch: {
+    data() {
+      this.carregaExercicios();
+    },
+  },
+
   methods: {
+    carregaExercicios() {
+      axios({
+        url: "http://localhost:3000/exercises",
+        method: "GET",
+      })
+        .then((response) => {
+          this.data = response.data;
+        })
+        .catch(() => {
+          alert("Exercícios não encontrados");
+        });
+    },
+
     cadastrarExercicio() {
       console.log("entrei aqui");
+      try {
+        const schema = yup.object().shape({
+          exercicio: yup.string().required("exercicio é obrigatório"),
+        });
+
+        schema.validateSync(
+          {
+            exercicio: this.exercicio,
+          },
+          { abortEarly: false }
+        );
+
+        axios({
+          url: "http://localhost:3000/exercises",
+          method: "POST",
+          data: {
+            description: this.exercicio,
+          },
+        })
+          .then(() => {
+            console.log("Cadastrado com sucesso");
+          })
+          .catch((error) => {
+            if (error.response?.data?.message) {
+              alert(error.response.data.message);
+            } else {
+              alert("Houve uma falha ao tentar cadastrar");
+            }
+          });
+      } catch (error) {
+        if (error instanceof yup.ValidationError) {
+          console.log(error);
+          // capturar os errors do yup
+          this.errors = captureErrorYup(error);
+        }
+      }
     },
   },
 };
