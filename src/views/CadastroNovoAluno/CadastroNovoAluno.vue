@@ -33,32 +33,39 @@
         v-model="cep"
         label="Cep"
       ></v-text-field>
+
       <v-text-field
         :error-messages="this.errors.endereco"
         v-model="endereco"
         label="Endereço"
-      ></v-text-field>
+        >{{ data.logradouro }}</v-text-field
+      >
       <v-text-field
         :error-messages="this.errors.numero"
         v-model="numero"
         label="Número"
       ></v-text-field>
+
       <v-select
         :error-messages="this.errors.estado"
         v-model="estado"
         :items="itens"
         label="Estado"
       ></v-select>
+
       <v-text-field
         :error-messages="this.errors.bairro"
         v-model="bairro"
         label="Bairro"
-      ></v-text-field>
+        >{{ data.bairro }}</v-text-field
+      >
       <v-text-field
+        outlined
         :error-messages="this.errors.cidade"
         v-model="cidade"
         label="Cidade"
-      ></v-text-field>
+        >{{ data.localidade }}</v-text-field
+      >
       <v-text-field
         :error-messages="this.errors.complemento"
         width="100"
@@ -97,6 +104,8 @@ export default {
 
     errors: [],
 
+    data: {},
+
     itens: [
       "AC",
       "AL",
@@ -127,10 +136,31 @@ export default {
       "TO",
     ],
   }),
+
+  watch: {
+    cep() {
+      this.viaCep();
+    },
+  },
+
   methods: {
+    viaCep() {
+      console.log(this.data.logradouro);
+
+      axios({
+        url: `http://viacep.com.br/ws/${this.cep}/json/`,
+        method: "GET",
+      })
+        .then((response) => {
+          this.data = response.data;
+        })
+        .catch(() => {});
+    },
+
     deashboard() {
       this.$router.push("/deashboard");
     },
+
     cadastrarAluno() {
       console.log("entrei aqui");
       try {
