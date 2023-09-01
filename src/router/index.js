@@ -26,7 +26,7 @@ const routes = [
         component: CadastroNovoAluno
       },
       {
-        path: '/treino/novo',
+        path: '/treino/:id/novo',
         name: 'CadastroTreino',
         component: CadastroTreino
       },
