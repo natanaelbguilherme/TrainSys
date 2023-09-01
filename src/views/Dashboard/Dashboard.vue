@@ -59,7 +59,7 @@ export default {
           this.item = response.data;
         })
         .catch(() => {
-          console.log("dasds não encontrados");
+          console.log("dados não encontrados");
         });
     },
   },

@@ -28,10 +28,17 @@
         <tr v-for="aluno in alunos" :key="aluno.id">
           <td>{{ aluno.name }}</td>
           <td>
-            <v-btn class="mr-2" height="20" color="#4527A0" type="submit"
+            <v-btn
+              @click="() => montarTreino(aluno.id)"
+              class="mr-2"
+              height="20"
+              color="#4527A0"
+              type="submit"
               >Montar Treino</v-btn
             >
-            <v-btn height="20" color="#E65100" type="submit">Ver</v-btn>
+            <v-btn @click="verTreino" height="20" color="#E65100" type="submit"
+              >Ver</v-btn
+            >
           </td>
         </tr>
       </tbody>
@@ -63,6 +70,14 @@ export default {
   },
 
   methods: {
+    montarTreino(id) {
+      this.$router.push({ name: "CadastroTreino", params: { id } });
+    },
+
+    verTreino() {
+      this.$router.push("/listagem/treinos");
+    },
+
     filtrarAlunos() {
       const pesquisa = this.alunoPesquisa.toLowerCase();
       this.alunos = this.alunos.filter((aluno) =>
