@@ -22,9 +22,9 @@
       ></v-text-field>
 
       <v-text-field
-        :error-messages="this.errors.dataNascimento"
+        :error-messages="this.errors.dataFormatada"
         type="date"
-        v-model="dataNascimento"
+        v-model="dataFormatada"
         label="Data de Nascimento"
       ></v-text-field>
 
@@ -38,8 +38,11 @@
         :error-messages="this.errors.endereco"
         v-model="endereco"
         label="Endereço"
-        >{{ data.logradouro }}</v-text-field
-      >
+      ></v-text-field>
+      <!-- 
+      <label id="endereco" for="endereco">Endereço</label>
+      <input class="inputPer" id="endereco" v-model="endereco" type="text" /> -->
+
       <v-text-field
         type="number"
         :error-messages="this.errors.numero"
@@ -58,15 +61,13 @@
         :error-messages="this.errors.bairro"
         v-model="bairro"
         label="Bairro"
-        >{{ data.bairro }}</v-text-field
-      >
+      ></v-text-field>
       <v-text-field
         outlined
         :error-messages="this.errors.cidade"
         v-model="cidade"
         label="Cidade"
-        >{{ data.localidade }}</v-text-field
-      >
+      ></v-text-field>
       <v-text-field
         :error-messages="this.errors.complemento"
         width="100"
@@ -85,16 +86,20 @@
 
 <script>
 import axios from "axios";
+
 import * as yup from "yup";
 import { captureErrorYup } from "../../utils/captureErrorYup";
-//import { dateFormat } from "../../utils/dateFormat";
+
+import { format } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
+import parse from "date-fns/parse";
 
 export default {
   data: () => ({
     nome: "",
     email: "",
     telefone: "",
-    dataNascimento: "",
+    dataFormatada: "",
     cep: "",
     endereco: "",
     numero: "",
@@ -102,6 +107,8 @@ export default {
     bairro: "",
     cidade: "",
     complemento: "",
+
+    erroDataSup: "",
 
     errors: [],
 
@@ -140,22 +147,56 @@ export default {
 
   watch: {
     cep() {
-      this.viaCep();
+      if (this.cep.length >= 8) this.viaCep();
+    },
+
+    dataFormatada() {
+      this.formatDate();
     },
   },
 
-  methods: {
-    viaCep() {
-      console.log(this.data.logradouro);
+  mounted() {
+    //this.formatDate();
+  },
 
+  methods: {
+    formatDate() {
+      const dataFormatada = parse(
+        this.dataFormatada,
+        "yyyy-MM-dd",
+        new Date(),
+        {
+          locale: ptBR,
+        }
+      );
+
+      if (dataFormatada > new Date()) {
+        alert("data maior que a data atual");
+        this.dataFormatada = new Date();
+      } else {
+        this.dataFormatada = format(dataFormatada, "dd/MM/yyy");
+        console.log(dataFormatada);
+        console.log(this.dataFormatada);
+      }
+    },
+
+    viaCep() {
       axios({
         url: `http://viacep.com.br/ws/${this.cep}/json/`,
         method: "GET",
       })
         .then((response) => {
           this.data = response.data;
+
+          this.endereco = this.data.logradouro;
+          this.cidade = this.data.localidade;
+          this.bairro = this.data.bairro;
+
+          console.log(this.data.localidade);
         })
-        .catch(() => {});
+        .catch(() => {
+          console.log("dados nao encontrados");
+        });
     },
 
     deashboard() {
@@ -176,20 +217,19 @@ export default {
             .min(8, "o telefone deve ter no minimo 8 numeros")
             .max(9, "o telefone deve ter no maximo 9 numeros")
             .required("o Telefone é obrigatorio"),
-          dataNascimento: yup
+          dataFormatada: yup
             .date()
-
-            .required("a data é obrigatoria")
-            .max(new Date(), "não é permitida uma data futura"),
+            .max(new Date(), "não é permitida uma data futura")
+            .required("a data é obrigatoria"),
 
           cep: yup
             .string()
             .min(8, "o cep deve ter  8 numeros")
             .required("o CEP é obrigatorio"),
-          //endereco: yup.string().required("O endereço é obrigatório"),
+          endereco: yup.string().required("O endereço é obrigatório"),
           numero: yup.string().required("O Número é obrigatório"),
-          //bairro: yup.string().required("O bairro é obrigatório"),
-          //cidade: yup.string().required("A cidade é obrigatória"),
+          bairro: yup.string().required("O bairro é obrigatório"),
+          cidade: yup.string().required("A cidade é obrigatória"),
           estado: yup.string().required("O estado é obrigatório"),
           complemento: yup.string().max(100, "digite no maximo 100 caracteres"),
         });
@@ -271,5 +311,15 @@ export default {
 
 .cad-aluno .v-text-field {
   width: 40%;
+}
+
+.inputPer {
+  width: 40%;
+  height: 60px;
+  background-color: rgb(243, 243, 242);
+  margin-bottom: 20px;
+  padding-left: 20px;
+  border-bottom: 1px solid rgb(180, 178, 178);
+  color: rgb(136, 136, 136);
 }
 </style>
