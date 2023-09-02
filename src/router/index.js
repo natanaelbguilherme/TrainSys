@@ -26,7 +26,7 @@ const routes = [
         component: CadastroNovoAluno
       },
       {
-        path: '/treino/:id/novo',
+        path: '/treino/:id/novo/:name',
         name: 'CadastroTreino',
         component: CadastroTreino
       },
@@ -51,7 +51,7 @@ const routes = [
         component: GerenciamentoDeExercicios
       },
       {
-        path: '/listagem/treinos',
+        path: '/listagem/:id/treinos/:name',
         name: 'VisualizacaoTreinos',
         component: VisualizacaoTreinos
       },
