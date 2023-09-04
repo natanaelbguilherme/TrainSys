@@ -1,4 +1,5 @@
 <template>
+  <Menu></Menu>
   <div class="main">
     <div class="cabecalho">
       <h1>
@@ -52,8 +53,13 @@
 
 <script>
 import axios from "axios";
+import Menu from "../../components/Menu";
 
 export default {
+  components: {
+    Menu,
+  },
+
   data: () => ({
     alunos: [],
     alunoPesquisa: "",

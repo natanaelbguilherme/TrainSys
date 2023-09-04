@@ -1,4 +1,5 @@
 <template>
+  <Menu></Menu>
   <div class="main">
     <h1>
       <v-icon class="card-icon" size="50">mdi-weight-lifter</v-icon> Exercícios
@@ -36,7 +37,13 @@ import axios from "axios";
 import * as yup from "yup";
 import { captureErrorYup } from "../../utils/captureErrorYup";
 
+import Menu from "../../components/Menu";
+
 export default {
+  components: {
+    Menu,
+  },
+
   data: () => ({
     exercicio: "",
     data: [],

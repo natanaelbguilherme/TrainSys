@@ -1,9 +1,5 @@
 <template>
-  <Menu>
-    <router-view></router-view>
-  </Menu>
+  <router-view></router-view>
 </template>
 
-<script setup>
-import Menu from "../src/components/Menu.vue";
-</script>
+<script setup></script>

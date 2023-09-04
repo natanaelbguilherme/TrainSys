@@ -1,4 +1,5 @@
 <template>
+  <Menu></Menu>
   <div class="main">
     <h1><v-icon class="card-icon" size="50">mdi-account</v-icon>Novo Aluno</h1>
 
@@ -94,7 +95,13 @@ import { format } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 import parse from "date-fns/parse";
 
+import Menu from "../../components/Menu";
+
 export default {
+  components: {
+    Menu,
+  },
+
   data: () => ({
     nome: "",
     email: "",
