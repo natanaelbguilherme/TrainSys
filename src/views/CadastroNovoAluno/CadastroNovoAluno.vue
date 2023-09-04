@@ -1,5 +1,4 @@
 <template>
-  <Menu></Menu>
   <div class="main">
     <h1><v-icon class="card-icon" size="50">mdi-account</v-icon>Novo Aluno</h1>
 
@@ -95,13 +94,7 @@ import { format } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 import parse from "date-fns/parse";
 
-import Menu from "../../components/Menu";
-
 export default {
-  components: {
-    Menu,
-  },
-
   data: () => ({
     nome: "",
     email: "",
@@ -157,9 +150,9 @@ export default {
       if (this.cep.length >= 8) this.viaCep();
     },
 
-    dataFormatada() {
-      this.formatDate();
-    },
+    // dataFormatada() {
+    //   this.formatDate();
+    // },
   },
 
   mounted() {
@@ -179,7 +172,7 @@ export default {
 
       if (dataFormatada > new Date()) {
         alert("data maior que a data atual");
-        this.dataFormatada = new Date();
+        this.dataFormatada = "";
       } else {
         this.dataFormatada = format(dataFormatada, "dd/MM/yyy");
         console.log(dataFormatada);
@@ -211,6 +204,7 @@ export default {
     },
 
     cadastrarAluno() {
+      this.formatDate();
       console.log("entrei aqui");
       try {
         const schema = yup.object().shape({
@@ -224,10 +218,7 @@ export default {
             .min(8, "o telefone deve ter no minimo 8 numeros")
             .max(9, "o telefone deve ter no maximo 9 numeros")
             .required("o Telefone é obrigatorio"),
-          dataFormatada: yup
-            .date()
-            .max(new Date(), "não é permitida uma data futura")
-            .required("a data é obrigatoria"),
+          dataFormatada: yup.date(),
 
           cep: yup
             .string()
@@ -265,7 +256,7 @@ export default {
             name: this.nome,
             email: this.email,
             contact: this.telefone,
-            date_birth: this.dataNascimento,
+            date_birth: this.dataFormatada,
             cep: this.cep,
             street: this.endereco,
             number: this.numero,

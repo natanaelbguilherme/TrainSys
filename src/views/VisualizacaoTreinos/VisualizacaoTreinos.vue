@@ -3,22 +3,28 @@
   <div class="main">
     <div class="cabecalho">
       <h1>
-        <v-icon class="card-icon" size="50">mdi-account-multiple</v-icon> Treino
-        - {{ this.$route.params.name }}
+        <v-icon class="card-icon" size="50">mdi-account-multiple</v-icon> Ficha
+        de treino - {{ this.$route.params.name }}
       </h1>
     </div>
+    <h1>Treino do dia - {{ this.diaFixo.toUpperCase() }}</h1>
 
-    <div class="treinoDia">
-      <h1>{{ this.diaFixo.toUpperCase() }}</h1>
-      <div class="chekbox">
-        <label v-for="treino in itemDia" :key="treino.id" id="exercicios">
-          <input type="checkbox" id="exercicios" v-model="exercicios" />
-          {{ treino.exercise_description }} | {{ treino.weight }} Kg |
-          {{ treino.repetitions }} Repetições | {{ treino.break_time }} min de
-          pausa
-        </label>
-      </div>
-    </div>
+    <v-checkbox
+      v-for="treino in itemDia"
+      :key="treino.id"
+      v-model="idTreino"
+      :label="[
+        treino.exercise_description,
+        ' | ',
+        treino.weight,
+        ' Kg | ',
+        treino.repetitions,
+        ' repetições | ',
+        treino.break_time,
+        ' min de pausa',
+      ]"
+      :value="treino.id"
+    ></v-checkbox>
 
     <div>
       <h2>Treinos da Semana</h2>
@@ -60,8 +66,6 @@
       </tbody>
     </v-table>
   </div>
-
-  {{ exercicios }}
 </template>
 
 <script>
@@ -86,28 +90,24 @@ export default {
     diaDaSemana: "",
     diaFixo: "",
 
-    // fichaTreino:[],
-
     idTreino: "",
-    idEstudante: "",
-    treinoDiaDaSemana: "",
   }),
 
   mounted() {
-    const diaDaSemana = format(new Date(), "cccc", { locale: ptBR });
+    const diaDaSemana = format(new Date(), "eee", { locale: ptBR });
     this.diaDaSemana = this.removerAcentos(diaDaSemana);
 
-    this.diaFixo = format(new Date(), "cccc", { locale: ptBR });
+    this.diaFixo = format(new Date(), "eee", { locale: ptBR });
 
     this.buscarTreino();
     this.buscarTreinoDia();
-    // this.checkExercicio();
   },
 
   watch: {
-    // exercicios() {
-    //   this.buscarTreinoDia();
-    // },
+    idTreino() {
+      this.exercicioConcluido();
+      this.exercicios = [...this.exercicios, this.idTreino];
+    },
 
     diaDaSemana() {
       this.buscarTreino();
@@ -187,6 +187,25 @@ export default {
       this.itemDia = this.itemDia.filter((data) =>
         data.day.toLocaleLowerCase().includes(treinoDia)
       );
+    },
+
+    exercicioConcluido() {
+      axios({
+        url: "http://localhost:3000/workouts/check",
+        method: "POST",
+        data: {
+          workout_id: this.idTreino,
+          student_id: this.$route.params.id,
+          day_of_week: this.diaFixo,
+        },
+        headers: {
+          Authorization: `Bearen ${token}`,
+        },
+      })
+        .then(() => {
+          console.log("exercicio conluido");
+        })
+        .catch(() => {});
     },
   },
 };

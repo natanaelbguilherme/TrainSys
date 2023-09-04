@@ -62,6 +62,7 @@ export default {
   components: {
     Menu,
   },
+
   data: () => ({
     exercicio: "",
     repeticoes: "",
