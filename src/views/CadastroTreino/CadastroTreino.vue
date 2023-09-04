@@ -1,20 +1,14 @@
 <template>
+  <Menu></Menu>
   <div class="main">
-    <h1><v-icon class="card-icon" size="50">mdi-account</v-icon>Treino</h1>
+    <h1>
+      <v-icon class="card-icon" size="50">mdi-account</v-icon>Treino -
+      {{ this.$route.params.name }}
+    </h1>
     <form class="cad-treino" @submit.prevent="cadastrarTreino">
-      <!-- <v-select
-        :error-messages="this.errors.exercicio"
-        v-model="exercicio"
-        :items="itemExercicio"
-        label="Exercicio"
-      ></v-select> -->
-      {{ exercicio }}
-      <select v-model="exercicio" class="select">
-        <option
-          v-for="item in itemExercicio"
-          :key="item.id"
-          :value="item.description"
-        >
+      <label id="select" for="select">Exercicio</label>
+      <select v-model="exercicio" class="select" id="select">
+        <option v-for="item in itemExercicio" :key="item.id" :value="item.id">
           {{ item.description }}
         </option>
       </select>
@@ -62,7 +56,13 @@ import axios from "axios";
 import * as yup from "yup";
 import { captureErrorYup } from "../../utils/captureErrorYup";
 
+import Menu from "../../components/Menu";
+
 export default {
+  components: {
+    Menu,
+  },
+
   data: () => ({
     exercicio: "",
     repeticoes: "",

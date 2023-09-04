@@ -1,4 +1,5 @@
 <template>
+  <Menu></Menu>
   <div class="main">
     <div class="cabecalho">
       <h1>
@@ -29,14 +30,18 @@
           <td>{{ aluno.name }}</td>
           <td>
             <v-btn
-              @click="() => montarTreino(aluno.id)"
+              @click="() => montarTreino(aluno.id, aluno.name)"
               class="mr-2"
               height="20"
               color="#4527A0"
               type="submit"
               >Montar Treino</v-btn
             >
-            <v-btn @click="verTreino" height="20" color="#E65100" type="submit"
+            <v-btn
+              @click="() => verTreino(aluno.id, aluno.name)"
+              height="20"
+              color="#E65100"
+              type="submit"
               >Ver</v-btn
             >
           </td>
@@ -48,8 +53,13 @@
 
 <script>
 import axios from "axios";
+import Menu from "../../components/Menu";
 
 export default {
+  components: {
+    Menu,
+  },
+
   data: () => ({
     alunos: [],
     alunoPesquisa: "",
@@ -70,12 +80,12 @@ export default {
   },
 
   methods: {
-    montarTreino(id) {
-      this.$router.push({ name: "CadastroTreino", params: { id } });
+    montarTreino(id, name) {
+      this.$router.push({ name: "CadastroTreino", params: { id, name } });
     },
 
-    verTreino() {
-      this.$router.push("/listagem/treinos");
+    verTreino(id, name) {
+      this.$router.push({ name: "VisualizacaoTreinos", params: { id, name } });
     },
 
     filtrarAlunos() {

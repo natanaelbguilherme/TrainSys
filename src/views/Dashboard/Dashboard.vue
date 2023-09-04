@@ -1,4 +1,5 @@
 <template>
+  <Menu></Menu>
   <div class="main">
     <div class="bem-vindo">
       <h1>Bem vindo, {{ nome }}</h1>
@@ -28,7 +29,13 @@ import axios from "axios";
 
 const nome = localStorage.getItem("nome_usuario");
 
+import Menu from "../../components/Menu";
+
 export default {
+  components: {
+    Menu,
+  },
+
   data() {
     return {
       nome: nome,

@@ -1,23 +1,25 @@
 <template>
   <v-layout>
-    <v-app-bar color="#0D47A1" v-if="renderizarMenu">
+    <v-app-bar color="#0D47A1">
       <v-app-bar-title class="titleMenu">TrainSys</v-app-bar-title>
 
-      <v-btn>
-        <router-link to="/dashboard"> Home </router-link>
-      </v-btn>
+      <button>
+        <router-link class="botao" to="/dashboard"> HOME </router-link>
+      </button>
 
-      <v-btn>
-        <router-link to="/listagem/alunos"> Alunos </router-link>
-      </v-btn>
+      <button>
+        <router-link class="botao" to="/listagem/alunos"> ALUNOS </router-link>
+      </button>
 
-      <v-btn>
-        <router-link to="/listagem/exercicios"> Exercícios </router-link>
-      </v-btn>
+      <button>
+        <router-link class="botao" to="/listagem/exercicios">
+          EXERCÍCIOS
+        </router-link>
+      </button>
 
-      <v-btn>
-        <router-link to="/"> Sair </router-link>
-      </v-btn>
+      <button>
+        <router-link class="botao" to="/"> SAIR </router-link>
+      </button>
     </v-app-bar>
     <v-main>
       <router-view></router-view>
@@ -26,13 +28,13 @@
 </template>
 
 <script>
-export default {
-  computed: {
-    renderizarMenu() {
-      return this.$router.path !== "" && this.$router.path !== "/usuario/novo";
-    },
-  },
-};
+export default {};
 </script>
 
-<style scoped></style>
+<style>
+.botao {
+  text-decoration: none;
+  color: #fff;
+  margin-right: 15px;
+}
+</style>
