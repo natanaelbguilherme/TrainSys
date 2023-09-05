@@ -56,6 +56,9 @@ import axios from "axios";
 import * as yup from "yup";
 import { captureErrorYup } from "../../utils/captureErrorYup";
 
+import { format } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
+
 import Menu from "../../components/Menu";
 
 export default {
@@ -110,6 +113,8 @@ export default {
   mounted() {
     console.log(this.$route);
     this.buscarExercicios();
+
+    this.dia = format(new Date(), "cccc", { locale: ptBR });
   },
 
   methods: {

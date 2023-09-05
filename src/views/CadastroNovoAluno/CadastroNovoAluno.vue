@@ -33,6 +33,8 @@
         label="Data de Nascimento"
       ></v-text-field>
 
+      <!-- <VueDatePicker v-model="date"></VueDatePicker> -->
+
       <v-text-field
         :error-messages="this.errors.cep"
         v-model="cep"
@@ -167,7 +169,30 @@ export default {
   },
 
   methods: {
+    viaCep() {
+      axios({
+        url: `http://viacep.com.br/ws/${this.cep}/json/`,
+        method: "GET",
+      })
+        .then((response) => {
+          this.data = response.data;
+
+          this.endereco = this.data.logradouro;
+          this.cidade = this.data.localidade;
+          this.bairro = this.data.bairro;
+        })
+        .catch(() => {
+          console.log("dados nao encontrados");
+        });
+    },
+
+    deashboard() {
+      this.$router.push("/dashboard");
+    },
+
     formatDate() {
+      this.erros = [];
+
       const dataFormatada = parse(
         this.dataNascimento,
         "yyyy-MM-dd",
@@ -187,29 +212,6 @@ export default {
       }
     },
 
-    viaCep() {
-      axios({
-        url: `http://viacep.com.br/ws/${this.cep}/json/`,
-        method: "GET",
-      })
-        .then((response) => {
-          this.data = response.data;
-
-          this.endereco = this.data.logradouro;
-          this.cidade = this.data.localidade;
-          this.bairro = this.data.bairro;
-
-          console.log(this.data.localidade);
-        })
-        .catch(() => {
-          console.log("dados nao encontrados");
-        });
-    },
-
-    deashboard() {
-      this.$router.push("/dashboard");
-    },
-
     cadastrarAluno() {
       console.log("entrei aqui");
       try {
@@ -221,13 +223,14 @@ export default {
             .required("Email é obrigatório"),
           telefone: yup
             .string()
+
             .min(8, "o telefone deve ter no minimo 8 numeros")
             .max(9, "o telefone deve ter no maximo 9 numeros")
             .required("o Telefone é obrigatorio"),
           dataNascimento: yup
-            .date()
-            .required("data obrigatoria")
-            .max(new Date(), "nao é permitido datas no futuro"),
+            .string()
+            .max(new Date(), "nao é permitido datas no futuro")
+            .required("data obrigatoria"),
           cep: yup
             .string()
             .min(8, "o cep deve ter  8 numeros")
