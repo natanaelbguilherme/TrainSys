@@ -1,7 +1,7 @@
 <template>
   <Menu></Menu>
   <div class="main">
-    <h1>
+    <h1 class="cabecalho">
       <v-icon class="card-icon" size="50">mdi-weight-lifter</v-icon> Exercícios
     </h1>
     <v-form class="cad-exercicio" @submit.prevent="cadastrarExercicio">
@@ -10,25 +10,27 @@
         class="input-exercicio"
         v-model="exercicio"
         label="Exercício"
-        placeholder="Nome do Exercício"
+        placeholder="Novo Exercício"
       ></v-text-field>
-      <v-btn height="54" color="#0d47a1" type="submit"
+      <v-btn class="botao" height="54" color="#0d47a1" type="submit"
         >Cadastrar Exercício</v-btn
       >
     </v-form>
 
-    <v-table>
-      <thead>
-        <tr>
-          <th class="text-left">Exercicio</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="exercicio in data" :key="exercicio.id">
-          <td>{{ exercicio.description }}</td>
-        </tr>
-      </tbody>
-    </v-table>
+    <div class="tabela">
+      <v-table>
+        <thead>
+          <tr>
+            <th class="text-left">Exercicio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="exercicio in data" :key="exercicio.id">
+            <td>{{ exercicio.description }}</td>
+          </tr>
+        </tbody>
+      </v-table>
+    </div>
   </div>
 </template>
 
@@ -45,6 +47,7 @@ export default {
   },
 
   data: () => ({
+    page: 1,
     exercicio: "",
     data: [],
 
@@ -126,6 +129,11 @@ export default {
   max-width: 800px;
 }
 
+.cabecalho {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .cad-exercicio {
   display: flex;
   gap: 20px;
@@ -137,6 +145,32 @@ export default {
 }
 
 .botao {
-  height: 100px;
+}
+
+@media (max-width: 650px) {
+  .main {
+    margin: 10px auto;
+  }
+
+  .cabecalho {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cad-exercicio {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .input-exercicio {
+    width: 100%;
+  }
+
+  .botao {
+    margin-top: -30px;
+    margin-bottom: 20px;
+    height: 100%;
+    width: 100%;
+  }
 }
 </style>

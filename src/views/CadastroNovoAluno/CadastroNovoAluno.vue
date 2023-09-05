@@ -1,6 +1,11 @@
 <template>
+  <Menu></Menu>
   <div class="main">
-    <h1><v-icon class="card-icon" size="50">mdi-account</v-icon>Novo Aluno</h1>
+    <div class="cabecalho">
+      <h1>
+        <v-icon class="card-icon" size="50">mdi-account</v-icon>Novo Aluno
+      </h1>
+    </div>
 
     <v-form class="cad-aluno">
       <v-text-field
@@ -22,9 +27,9 @@
       ></v-text-field>
 
       <v-text-field
-        :error-messages="this.errors.dataFormatada"
+        :error-messages="this.errors.dataNascimento"
         type="date"
-        v-model="dataFormatada"
+        v-model="dataNascimento"
         label="Data de Nascimento"
       ></v-text-field>
 
@@ -39,9 +44,6 @@
         v-model="endereco"
         label="Endereço"
       ></v-text-field>
-      <!-- 
-      <label id="endereco" for="endereco">Endereço</label>
-      <input class="inputPer" id="endereco" v-model="endereco" type="text" /> -->
 
       <v-text-field
         type="number"
@@ -75,7 +77,7 @@
         label="Complemento"
       ></v-text-field>
     </v-form>
-    <div style="display: flex; gap: 20px; justify-content: flex-end">
+    <div class="rodape">
       <v-btn color="#FFF" type="submit" @click="deashboard">Voltar</v-btn>
       <v-btn color="#0d47a1" type="submit" @click="cadastrarAluno"
         >Cadastrar</v-btn
@@ -94,11 +96,18 @@ import { format } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 import parse from "date-fns/parse";
 
+import Menu from "../../components/Menu";
+
 export default {
+  components: {
+    Menu,
+  },
+
   data: () => ({
     nome: "",
     email: "",
     telefone: "",
+    dataNascimento: "",
     dataFormatada: "",
     cep: "",
     endereco: "",
@@ -108,11 +117,9 @@ export default {
     cidade: "",
     complemento: "",
 
-    erroDataSup: "",
-
     errors: [],
 
-    data: {},
+    data: [],
 
     itens: [
       "AC",
@@ -150,9 +157,9 @@ export default {
       if (this.cep.length >= 8) this.viaCep();
     },
 
-    // dataFormatada() {
-    //   this.formatDate();
-    // },
+    dataNascimento() {
+      this.formatDate();
+    },
   },
 
   mounted() {
@@ -162,7 +169,7 @@ export default {
   methods: {
     formatDate() {
       const dataFormatada = parse(
-        this.dataFormatada,
+        this.dataNascimento,
         "yyyy-MM-dd",
         new Date(),
         {
@@ -172,7 +179,7 @@ export default {
 
       if (dataFormatada > new Date()) {
         alert("data maior que a data atual");
-        this.dataFormatada = "";
+        this.dataNascimento = "";
       } else {
         this.dataFormatada = format(dataFormatada, "dd/MM/yyy");
         console.log(dataFormatada);
@@ -200,11 +207,10 @@ export default {
     },
 
     deashboard() {
-      this.$router.push("/deashboard");
+      this.$router.push("/dashboard");
     },
 
     cadastrarAluno() {
-      this.formatDate();
       console.log("entrei aqui");
       try {
         const schema = yup.object().shape({
@@ -218,8 +224,10 @@ export default {
             .min(8, "o telefone deve ter no minimo 8 numeros")
             .max(9, "o telefone deve ter no maximo 9 numeros")
             .required("o Telefone é obrigatorio"),
-          dataFormatada: yup.date(),
-
+          dataNascimento: yup
+            .date()
+            .required("data obrigatoria")
+            .max(new Date(), "nao é permitido datas no futuro"),
           cep: yup
             .string()
             .min(8, "o cep deve ter  8 numeros")
@@ -295,9 +303,9 @@ export default {
   max-width: 800px;
 }
 
-.main h1 {
+.cabecalho {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .cad-aluno {
@@ -311,13 +319,28 @@ export default {
   width: 40%;
 }
 
-.inputPer {
-  width: 40%;
-  height: 60px;
-  background-color: rgb(243, 243, 242);
-  margin-bottom: 20px;
-  padding-left: 20px;
-  border-bottom: 1px solid rgb(180, 178, 178);
-  color: rgb(136, 136, 136);
+.rodape {
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 650px) {
+  .main {
+    margin: 10px auto;
+  }
+
+  .cabecalho {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .cad-aluno {
+    width: 80%;
+    margin: auto;
+  }
+
+  .cad-aluno .v-text-field {
+    width: 80%;
+  }
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
   <Menu></Menu>
   <div class="main">
-    <h1>
+    <h1 class="cabecalho">
       <v-icon class="card-icon" size="50">mdi-account</v-icon>Treino -
       {{ this.$route.params.name }}
     </h1>
     <form class="cad-treino" @submit.prevent="cadastrarTreino">
-      <label id="select" for="select">Exercicio</label>
+      <label class="lableSelect" id="select" for="select">Exercicio</label>
       <select v-model="exercicio" class="select" id="select">
         <option v-for="item in itemExercicio" :key="item.id" :value="item.id">
           {{ item.description }}
@@ -32,17 +32,17 @@
           v-model="pausa"
           label="Pausa em Minutos"
         ></v-text-field>
+        <v-select
+          :error-messages="this.errors.dia"
+          v-model="dia"
+          :items="itensSemana"
+          label="Dia da Semana"
+        ></v-select>
+        <v-text-field v-model="obs" label="Observações"></v-text-field>
       </div>
-      <v-select
-        :error-messages="this.errors.dia"
-        v-model="dia"
-        :items="itensSemana"
-        label="Dia da Semana"
-      ></v-select>
-      <v-text-field v-model="obs" label="Observações"></v-text-field>
     </form>
 
-    <div style="display: flex; gap: 20px; justify-content: flex-end">
+    <div class="rodape">
       <v-btn @click="pagalunos" color="#FFF" type="submit">Cancelar</v-btn>
       <v-btn @click="cadastrarTreino" color="#0d47a1" type="submit"
         >Cadastrar</v-btn
@@ -221,5 +221,52 @@ export default {
   padding-left: 20px;
   border-bottom: 1px solid rgb(180, 178, 178);
   color: rgb(136, 136, 136);
+}
+
+.rodape {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+@media (max-width: 650px) {
+  .main {
+    margin: 10px auto;
+  }
+
+  .cabecalho {
+    width: 80%;
+    display: flex;
+    align-items: center;
+  }
+
+  .cad-treino {
+    margin-top: 20px;
+  }
+
+  .select {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-bottom: 20px;
+    width: 80%;
+  }
+
+  .lableSelect {
+    margin-left: 40px;
+  }
+
+  .form-element {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+  }
+
+  .rodape {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 </style>

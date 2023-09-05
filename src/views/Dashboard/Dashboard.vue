@@ -112,4 +112,23 @@ export default {
   background-color: #0d47a1;
   color: #fff;
 }
+
+@media (max-width: 650px) {
+  .main {
+    margin: 10px auto;
+  }
+
+  .card-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .bem-vindo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+}
 </style>
