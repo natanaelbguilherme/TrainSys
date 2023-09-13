@@ -64,7 +64,7 @@ Nesta página o treino sera montado pelo usuário, no primeiro campo estarão li
 ## _Ver Treino_
 <img src="https://uploaddeimagens.com.br/images/004/606/285/full/vertreino.PNG?1694628846" />
 
-Nesta página está a ficha de treino de cada aluno, o dia da semana e o respectivo treino a ser realizado naquele dia, e um chekbox que pode ser marcado para acompanhar o exercicios feitos pelo aluno.
+Nesta página está a ficha de treino de cada aluno, o dia da semana e o respectivo treino a ser realizado naquele dia, há também um um chekbox ao aldo de cada exercício, que pode ser marcado para acompanhar os exercicios feitos pelo aluno.
 Abaixo temos a ficha de treino completa de todos os dias da semana, onde o usuário pode clicar em cada dia da semana e ver qual treino realizará.
 
 ## Melhorias
