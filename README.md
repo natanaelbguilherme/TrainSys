@@ -52,7 +52,7 @@ Aqui o usuário poderá cadastrar novos exercicios, ao clicar no botão "cadastr
 
 Nesta página o usuário também pode ir para a página de cadastro de alunos clicando no botão "novo aluno", abaixo há um campo de pesquisa para buscar alunos pelo nome cadastrado, o capo funciona automaticamente ao digitar o nome do aluno procurado.
 
-Ao lado do nome de cada aluno existem dois botões, o "montar treino" e "ver", o botão montar treino leva para a página onde o usuário pode montar o treino personalizado para cada aluno.]
+Ao lado do nome de cada aluno existem dois botões, o "montar treino" e "ver", o botão montar treino leva para a página onde o usuário pode montar o treino personalizado para cada aluno.
 
 O botão "ver" irá mostrar todos os treinos montados para o aluno.
 
