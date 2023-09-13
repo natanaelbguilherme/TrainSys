@@ -1,25 +1,31 @@
 <template>
   <v-layout>
     <v-app-bar color="#0D47A1">
-      <v-app-bar-title class="titleMenu">TrainSys</v-app-bar-title>
+      <div class="menuBar">
+        <v-app-bar-title class="titleMenu">Total Power</v-app-bar-title>
 
-      <button>
-        <router-link class="botao" to="/dashboard"> HOME </router-link>
-      </button>
+        <div>
+          <button>
+            <router-link class="botao" to="/dashboard"> HOME </router-link>
+          </button>
 
-      <button>
-        <router-link class="botao" to="/listagem/alunos"> ALUNOS </router-link>
-      </button>
+          <button>
+            <router-link class="botao" to="/listagem/alunos">
+              ALUNOS
+            </router-link>
+          </button>
 
-      <button>
-        <router-link class="botao" to="/listagem/exercicios">
-          EXERCÍCIOS
-        </router-link>
-      </button>
+          <button>
+            <router-link class="botao" to="/listagem/exercicios">
+              EXERCÍCIOS
+            </router-link>
+          </button>
 
-      <button>
-        <router-link class="botao" to="/"> SAIR </router-link>
-      </button>
+          <button>
+            <router-link class="botao" to="/"> SAIR </router-link>
+          </button>
+        </div>
+      </div>
     </v-app-bar>
     <v-main>
       <router-view></router-view>
@@ -36,5 +42,13 @@ export default {};
   text-decoration: none;
   color: #fff;
   margin-right: 15px;
+}
+
+.menuBar {
+  display: flex;
+  margin: auto;
+  align-items: center;
+
+  width: 800px;
 }
 </style>

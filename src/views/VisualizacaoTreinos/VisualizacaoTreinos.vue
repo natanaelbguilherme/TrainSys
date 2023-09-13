@@ -7,26 +7,28 @@
         de treino - {{ this.$route.params.name }}
       </h1>
     </div>
-    <h1>Treino do dia - {{ this.diaFixo.toUpperCase() }}</h1>
 
-    <v-checkbox
-      v-for="treino in itemDia"
-      :key="treino.id"
-      v-model="idTreino"
-      :label="[
-        treino.exercise_description,
-        ' | ',
-        treino.weight,
-        ' Kg | ',
-        treino.repetitions,
-        ' repetições | ',
-        treino.break_time,
-        ' min de pausa',
-      ]"
-      :value="treino.id"
-    ></v-checkbox>
+    <div class="chekbox">
+      <h2>Treino do dia - {{ this.diaFixo.toUpperCase() }}</h2>
+      <v-checkbox
+        v-for="treino in itemDia"
+        :key="treino.id"
+        v-model="idTreino"
+        :label="[
+          treino.exercise_description,
+          ' | ',
+          treino.weight,
+          ' Kg | ',
+          treino.repetitions,
+          ' repetições | ',
+          treino.break_time,
+          ' min de pausa',
+        ]"
+        :value="treino.id"
+      ></v-checkbox>
+    </div>
 
-    <div>
+    <div class="tabela">
       <h2>Treinos da Semana</h2>
       <v-table>
         <thead>
@@ -50,10 +52,10 @@
     <v-table class="tabelaTreino">
       <thead>
         <tr>
-          <th class="text-left">Exercicio</th>
-          <th class="text-left">Quilos</th>
-          <th class="text-left">Repetições</th>
-          <th class="text-left">Pausa</th>
+          <th class="linha">Exercicio</th>
+          <th class="linha">Quilos</th>
+          <th class="linha">Repetições</th>
+          <th class="linha">Pausa</th>
         </tr>
       </thead>
       <tbody>
@@ -216,6 +218,15 @@ export default {
   margin: 100px auto;
   max-width: 800px;
 }
+.cabecalho {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.linha {
+  width: 25%;
+}
 
 .chekbox {
   display: flex;
@@ -230,5 +241,42 @@ export default {
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;
+}
+
+@media (max-width: 650px) {
+  .main {
+    margin: 10px auto;
+  }
+  .cabecalho {
+    font-size: 14px;
+    margin: auto;
+  }
+
+  .linha {
+    width: 10%;
+  }
+
+  h2 {
+    margin: auto;
+  }
+
+  .chekbox {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 10px;
+  }
+
+  .tabelaTreino {
+    width: 90%;
+    border: 1px solid black;
+    margin: auto;
+  }
+
+  .treinoDia {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+  }
 }
 </style>

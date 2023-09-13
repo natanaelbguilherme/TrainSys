@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
+    "@vuepic/vue-datepicker": "^6.0.3",
     "axios": "^1.5.0",
     "core-js": "^3.29.0",
     "date-fns": "^2.30.0",

@@ -1,5 +1,9 @@
 <template>
   <div class="container">
+    <img
+      src="https://static.vecteezy.com/ti/vetor-gratis/t2/595983-objeto-de-e-icones-para-rotulo-esportivo-distintivo-de-ginasio-fitness-logo-design-gratis-vetor.jpg"
+      alt="logotipo"
+    />
     <v-form class="form-login" @submit.prevent="fazerLogin">
       <v-text-field
         type="email"
